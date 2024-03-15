@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      .slider-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .slider {
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+
+      .slide {
+        flex: 0 0 100%;
+      }
+
+      .slide img {
+        width: 100%;
+        height: auto;
+      }
+
+      .slider-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 10px;
+        text-decoration: none;
+      }
+
+      .slider-button.prev {
+        left: 10px;
+      }
+
+      .slider-button.next {
+        right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider-container">
+      <div class="slider">
+        <div class="slide">
+          <img src="slide1.jpg" alt="Slide 1" />
+        </div>
+        <div class="slide">
+          <img src="slide2.jpg" alt="Slide 2" />
+        </div>
+        <div class="slide">
+          <img src="slide3.jpg" alt="Slide 3" />
+        </div>
+        <!-- Add more slides as needed -->
+      </div>
+      <a href="#" class="slider-button prev">&lt;</a>
+      <a href="#" class="slider-button next">&gt;</a>
+    </div>
+
+    <script>
+      const slider = document.querySelector(".slider");
+      const slides = Array.from(slider.children);
+      const prevButton = document.querySelector(".slider-button.prev");
+      const nextButton = document.querySelector(".slider-button.next");
+      const slideWidth = slides[0].getBoundingClientRect().width;
+
+      let currentIndex = 0;
+
+      function moveToSlide(index) {
+        slider.style.transform = `translateX(-${index * slideWidth}px)`;
+        currentIndex = index;
+      }
+
+      function showNextSlide() {
+        const nextIndex = (currentIndex + 1) % slides.length;
+        moveToSlide(nextIndex);
+      }
+
+      function showPrevSlide() {
+        const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+        moveToSlide(prevIndex);
+      }
+
+      nextButton.addEventListener("click", showNextSlide);
+      prevButton.addEventListener("click", showPrevSlide);
+    </script>
+  </body>
+</html>
